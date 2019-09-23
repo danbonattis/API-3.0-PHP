@@ -6,6 +6,7 @@ use Cielo\API30\Ecommerce\Request\CreateSaleRequest;
 use Cielo\API30\Ecommerce\Request\QueryRecurrentPaymentRequest;
 use Cielo\API30\Ecommerce\Request\QuerySaleRequest;
 use Cielo\API30\Ecommerce\Request\TokenizeCardRequest;
+use Cielo\API30\Ecommerce\Request\UpdateSaleRecurrencyRequest;
 use Cielo\API30\Ecommerce\Request\UpdateSaleRequest;
 use Cielo\API30\Merchant;
 use Psr\Log\LoggerInterface;
@@ -176,4 +177,45 @@ class CieloEcommerce
 
         return $tokenizeCardRequest->execute($card);
     }
+
+    /**
+     * @param $recurrentPaymentId
+     * @return null
+     * @throws Request\CieloRequestException
+     */
+    public function deactiveSaleRecurrency($recurrentPaymentId) {
+
+        $request = new UpdateSaleRecurrencyRequest();
+
+        return $request->executeDeactivate($recurrentPaymentId);
+
+    }
+
+    /**
+     * @param $recurrentPaymentId
+     * @return null
+     * @throws Request\CieloRequestException
+     */
+    public function reactiveSaleRecurrency($recurrentPaymentId) {
+
+        $request = new UpdateSaleRecurrencyRequest();
+
+        return $request->executeReactivate($recurrentPaymentId);
+
+    }
+
+    /**
+     * @param $recurrentPaymentId
+     * @param float $amount
+     * @return mixed
+     * @throws Request\CieloRequestException
+     */
+    public function changeAmountSaleRecurrency($recurrentPaymentId, float $amount) {
+
+        $request = new UpdateSaleRecurrencyRequest();
+
+        return $request->executeAmount($recurrentPaymentId, $amount);
+
+    }
+
 }
